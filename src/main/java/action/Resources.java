@@ -16,6 +16,7 @@ import org.junit.Assert;
 import java.util.List;
 import java.util.Map;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 public class Resources extends CommonUtilities {
@@ -26,28 +27,22 @@ public class Resources extends CommonUtilities {
     private static int numberOfPosts;
     private static String postId;
     EmailValidator validator = EmailValidator.getInstance();
-
-    @Given("User is valid")
-    public void User_Is_Valid() {
-
-    }
+    public static String baseURI = CommonUtilities.getBaseURL();
 
     @When("^User performs a GET call on the \"(.*)\" resource$")
     public void userPerformsAGETCallOnTheUsersResource(String resourceName) {
-        RestAssured.baseURI = CommonUtilities.getBaseURL();
-
 
         switch (resourceName) {
             case "users":
-                response = httpsRequest.request(Method.GET, "https://jsonplaceholder.typicode.com/users");
+                response = httpsRequest.request(Method.GET, baseURI+"users");
                 break;
 
             case "posts":
-                response = httpsRequest.request(Method.GET, "https://jsonplaceholder.typicode.com/posts");
+                response = httpsRequest.request(Method.GET, baseURI+"posts");
                 break;
 
             case "comments":
-                response = httpsRequest.request(Method.GET, "https://jsonplaceholder.typicode.com/comments");
+                response = httpsRequest.request(Method.GET, baseURI+"comments");
                 break;
         }
     }
@@ -60,7 +55,7 @@ public class Resources extends CommonUtilities {
     @When("User performs a GET call on the {string} resource with username {string}")
     public void userPerformsAGETCallOnTheResourceWithUsername(String users, String username) {
         response = httpsRequest.queryParam("username", username)
-                .request(Method.GET, "https://jsonplaceholder.typicode.com/users");
+                .request(Method.GET, baseURI+"users");
     }
 
     @And("Extracts the Id of this username")
@@ -73,7 +68,7 @@ public class Resources extends CommonUtilities {
     public void userPerformsAGETCallOnTheResourceWithTheExtractedId(String arg0) {
 
         response = httpsRequest.queryParam("userId", userId)
-                .request(Method.GET, "https://jsonplaceholder.typicode.com/posts");
+                .request(Method.GET, baseURI+"posts");
     }
 
     @And("Extract the postIds of this username")
@@ -88,7 +83,7 @@ public class Resources extends CommonUtilities {
         List<Map<String, String>> postIds = path.getList("id");
         for (int i = 0; i < numberOfPosts; i++) {
             response = httpsRequest.queryParam("postId", postIds.get(i))
-                    .request(Method.GET, "https://jsonplaceholder.typicode.com/comments");
+                    .request(Method.GET, baseURI+"comments");
         }
 
     }

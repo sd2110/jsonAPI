@@ -6,8 +6,7 @@ import org.junit.runner.RunWith;
     @CucumberOptions(
             features = "src/test/resources/Feature Files",
             glue = {"action"},
-            monochrome = true,
-            publish = true
+            monochrome = true
     )
 
     public class apiRunnerTest {

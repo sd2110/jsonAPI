@@ -1,7 +1,6 @@
 Feature: Mobiquity QA assessment
 
   Scenario Outline: Test Json placeholder resources
-    Given User is valid
     When User performs a GET call on the "<Users/Posts/Comments>" resource
     Then API call is successful with a status code "<statusCode>"
     Examples:
@@ -11,20 +10,11 @@ Feature: Mobiquity QA assessment
       | comments             | 200        |
 
   Scenario Outline: Test Users resource with a valid username in the query parameter
-    Given User is valid
     When User performs a GET call on the "users" resource with username "<name>"
     Then API call is successful with a status code "<statusCode>"
     Examples:
       | statusCode |name|
       | 200        |Delphine|
-
-  Scenario Outline: Test Users resource with an invalid username in the query parameter
-    Given User is valid
-    When User performs a GET call on the "users" resource with username "<name>"
-    Then API call is successful with a status code "<statusCode>"
-    Examples:
-      | statusCode |name|
-      | 204        |Sagar|
 
   Scenario Outline: Test posts resource with a valid userId in the query parameter
     Given User performs a GET call on the "users" resource with username "<name>"
@@ -56,6 +46,6 @@ Feature: Mobiquity QA assessment
     Then API call is successful with a status code "<statusCode>"
     Examples:
       | statusCode |name|
-      | 200        |Karianne|
+      | 200        |Delphine|
 
 
